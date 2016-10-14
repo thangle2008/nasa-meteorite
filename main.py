@@ -12,7 +12,12 @@ jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                 autoescape = True)
 
 # NASA's data
-REQUEST_URL = "https://data.nasa.gov/resource/y77d-th95.json?$limit=5"
+REQUEST_URL = "https://data.nasa.gov/resource/y77d-th95.json?$query=SELECT * " + \
+                "WHERE year IS NOT NULL ORDER BY year DESC"
+
+# helper functions
+def request_data(limit=None):
+    return
 
 # The base class for handling requests
 class Handler(webapp2.RequestHandler):
@@ -41,5 +46,13 @@ class MainPage(Handler):
 
     def post(self):
         return;
-        
-app = webapp2.WSGIApplication([('/', MainPage),], debug=True)
+
+# Displays the globe
+class GlobePage(Handler):
+    def get(self):
+        self.render("globe.html")        
+
+ROUTES = [('/', MainPage),
+          ('/geo', GlobePage),]
+
+app = webapp2.WSGIApplication(ROUTES, debug=True)

@@ -9,10 +9,19 @@ a.button {
     border-radius: 5px;
     color: white;
     font-weight: bold;
+    text-decoration: none;
 }
 
 div.inner {
 	position: absolute;
+	top: 50%;
+	height: 50%;
+}
+
+#bground {
+	background-image: url('/static/images/background-stars.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 #container {

@@ -7,7 +7,7 @@ var globe = new DAT.Globe(container, {imgDir: '/static/images/'});
 var xhr = new XMLHttpRequest();
 
 // Where do we get the data?
-xhr.open( 'GET', '/static/data/geolocations.json', true );
+xhr.open( 'GET', '/static/data/data.json', true );
 
 // What do we do when we have it?
 xhr.onreadystatechange = function() {
