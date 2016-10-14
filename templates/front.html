@@ -1,10 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-<center><h2>Data Visualization - NASA Meteorite</h2></center>
 
-<script type="text/javascript" src="https://github.com/dataarts/webgl-globe/blob/master/globe/globe.js"></script>
+<div>
+	<div id=container></div>
+
+	<div class="inner">
+		<a class="button" href="/">Back to Homepage</a>
+	</div>
+</div>
+
+<script type="text/javascript" src="/static/js/lib/three.min.js"></script>
+<script type="text/javascript" src="/static/js/lib/globe.js"></script>
 <script type="text/javascript" src="/static/js/drawGlobe.js"></script>
-
-<a id="container"></a>
 
 {% endblock %}
