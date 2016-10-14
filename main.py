@@ -42,6 +42,7 @@ class Handler(webapp2.RequestHandler):
 # Handle requests in main page
 class MainPage(Handler):
     def get(self):
+        print "here"
         self.render("front.html")
 
     def post(self):
@@ -50,7 +51,7 @@ class MainPage(Handler):
 # Displays the globe
 class GlobePage(Handler):
     def get(self):
-        self.render("globe.html")        
+        self.render("index.html")        
 
 ROUTES = [('/', MainPage),
           ('/geo', GlobePage),]
