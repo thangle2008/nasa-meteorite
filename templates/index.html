@@ -58,7 +58,7 @@
       #title {
         position: absolute;
         top: 20px;
-        width: 270px;
+        width: 350px;
         left: 20px;
         background-color: rgba(0,0,0,0.2);
         border-radius: 3px;
@@ -66,7 +66,7 @@
         padding: 10px;
       }
 
-      .year {
+      .mass {
         font: 16px Georgia;
         line-height: 26px;
         height: 30px;
@@ -79,7 +79,7 @@
         -webkit-transition: all 0.1s ease-out;
       }
 
-      .year:hover, .year.active {
+      .mass:hover, .mass.active {
         font-size: 23px;
         color: #fff;
       }
@@ -106,17 +106,17 @@
   <div id="container"></div>
 
   <div id="info">
-    <strong><a href="http://www.chromeexperiments.com/globe">WebGL Globe</a></strong> <span class="bull">&bull;</span> Created by the Google Data Arts Team <span class="bull">&bull;</span> Data acquired from <a href="http://sedac.ciesin.columbia.edu/gpw/">SEDAC</a>
+    <strong><a href="http://www.chromeexperiments.com/globe">WebGL Globe</a></strong> <span class="bull">&bull;</span> Created by the Google Data Arts Team , Used by Thang Le<span class="bull">&bull;</span> Data acquired from <a href="https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh">NASA</a>
   </div>
 
   <div id="currentInfo">
-    <span id="year1990" class="year">1990</span>
-    <span id="year1995" class="year">1995</span>
-    <span id="year2000" class="year">2000</span>
+    <span id="mass0" class="mass">< 10</span>
+    <span id="mass10" class="mass">[10, 100]</span>
+    <span id="mass100" class="mass">>100</span>
   </div>
 
   <div id="title">
-    World Population
+    Locations of landed meteorites
   </div>
 
   <a id="ce" href="http://www.chromeexperiments.com/globe">
@@ -133,7 +133,7 @@
       Detector.addGetWebGLMessage();
     } else {
 
-      var years = ['1990','1995','2000'];
+      var masses = ['0','10','100'];
       var container = document.getElementById('container');
       var globe = new DAT.Globe(container, {imgDir: "/static/images/"});
 
@@ -142,21 +142,21 @@
       
       var settime = function(globe, t) {
         return function() {
-          new TWEEN.Tween(globe).to({time: t/years.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
-          var y = document.getElementById('year'+years[t]);
-          if (y.getAttribute('class') === 'year active') {
+          new TWEEN.Tween(globe).to({time: t/masses.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
+          var y = document.getElementById('mass'+masses[t]);
+          if (y.getAttribute('class') === 'mass active') {
             return;
           }
-          var yy = document.getElementsByClassName('year');
+          var yy = document.getElementsByClassName('mass');
           for(i=0; i<yy.length; i++) {
-            yy[i].setAttribute('class','year');
+            yy[i].setAttribute('class','mass');
           }
-          y.setAttribute('class', 'year active');
+          y.setAttribute('class', 'mass active');
         };
       };
       
-      for(var i = 0; i<years.length; i++) {
-        var y = document.getElementById('year'+years[i]);
+      for(var i = 0; i<masses.length; i++) {
+        var y = document.getElementById('mass'+masses[i]);
         y.addEventListener('mouseover', settime(globe,i), false);
       }
       
@@ -165,7 +165,7 @@
       
       
       xhr = new XMLHttpRequest();
-      xhr.open('GET', 'static/js/globe/population909500.json', true);
+      xhr.open('GET', 'static/data/data2.json', true);
       xhr.onreadystatechange = function(e) {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
