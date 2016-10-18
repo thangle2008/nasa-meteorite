@@ -11,10 +11,6 @@ template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                 autoescape = True)
 
-# NASA's data
-REQUEST_URL = "https://data.nasa.gov/resource/y77d-th95.json?$query=SELECT * " + \
-                "WHERE year IS NOT NULL ORDER BY year DESC"
-
 # helper functions
 def request_data(limit=None):
     return
@@ -42,18 +38,11 @@ class Handler(webapp2.RequestHandler):
 # Handle requests in main page
 class MainPage(Handler):
     def get(self):
-        print "here"
-        self.render("front.html")
+        self.render("index.html")
 
     def post(self):
         return;
 
-# Displays the globe
-class GlobePage(Handler):
-    def get(self):
-        self.render("index.html")        
-
-ROUTES = [('/', MainPage),
-          ('/geo', GlobePage),]
+ROUTES = [('/', MainPage),]
 
 app = webapp2.WSGIApplication(ROUTES, debug=True)
