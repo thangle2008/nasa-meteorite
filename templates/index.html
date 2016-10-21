@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-  <script type="text/javascript" src="/static/js/handlers.js"></script>
+  <script type="text/javascript" src="/static/js/asteroids.js"></script>
   <div id="container"></div>
 
   <div id="info">
@@ -14,8 +14,6 @@
   </div>
 
   <div id="liveAsteroid">
-    <button onclick="getAsteroid()">Next Asteroid</button>
-
     <div id="asteroidInformation"></div>
   </div>
 
@@ -33,6 +31,16 @@
   <script type="text/javascript" src="/static/js/globe/globe.js"></script>
   <script type="text/javascript" src="/static/js/jquery-3.1.1.min.js"></script>
   <script type="text/javascript">
+
+  // get asteroids information
+  NearAsteroids.getAsteroid();
+
+  window.setInterval(function() {
+    $("#asteroidInformation").fadeOut(2500, function() {
+      NearAsteroids.writeInformation();
+      $("#asteroidInformation").fadeIn(2500);
+    });
+  }, 20000);
 
   if(!Detector.webgl){
     Detector.addGetWebGLMessage();
