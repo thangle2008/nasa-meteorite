@@ -30,6 +30,7 @@ for d in data:
 	if 'mass' in d:
 		mass = float(d['mass'])
 
+	# classify meteorites by their masses
 	if mass < 10:
 		res[0][1] = res[0][1] + [lat, lon, mass]
 		mass_mins[0] = min(mass_mins[0], mass)

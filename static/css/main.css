@@ -55,10 +55,10 @@ body {
 }
 
 #currentInfo {
-    width: 270px;
+    width: 300px;
     position: absolute;
     left: 20px;
-    top: 63px;
+    top: 80px;
 
     background-color: rgba(0,0,0,0.2);
 
@@ -96,7 +96,7 @@ a:hover {
     height: 30px;
     text-align: center;
     float: left;
-    width: 90px;
+    width: 100px;
     color: rgba(255, 255, 255, 0.4);
 
     cursor: pointer;

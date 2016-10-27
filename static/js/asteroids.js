@@ -3,6 +3,7 @@ var NearAsteroids = {
 	LAST_DAY: "2016-10-10",
 	counter: 0,
 
+	// get near-earth asteroid information from NASA
 	getAsteroid: function() {
 		var today = new Date();
 
@@ -45,6 +46,7 @@ var NearAsteroids = {
 		else NearAsteroids.writeInformation();
 	},
 
+	// display asteroid information
 	writeInformation: function() {
 		var asteroids = NearAsteroids.asteroids;
 		var counter = NearAsteroids.counter;
