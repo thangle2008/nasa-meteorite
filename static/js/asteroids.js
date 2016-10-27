@@ -1,5 +1,5 @@
 var NearAsteroids = {
-	asteroids: [],
+	asteroids: null,
 	LAST_DAY: "2016-10-10",
 	counter: 0,
 
@@ -17,7 +17,17 @@ var NearAsteroids = {
 
 		today = yyyy + '-' + mm + '-' + dd;
 
-		if(NearAsteroids.LAST_DAY !== today || NearAsteroids.asteroids.length === 0) {
+		NearAsteroids.LAST_DAY = window.localStorage.getItem("date");
+		if(NearAsteroids.LAST_DAY !== today) {
+			window.localStorage.removeItem("date");
+			window.localStorage.removeItem("asteroids");
+		}
+
+		savedAsteroids = window.localStorage.getItem("asteroids");
+		if(savedAsteroids !== null)
+			NearAsteroids.asteroids = JSON.parse(savedAsteroids);
+
+		if(NearAsteroids.LAST_DAY !== today || NearAsteroids.asteroids === null) {
 			$.ajax({
 			    url: "https://api.nasa.gov/neo/rest/v1/feed?api_key=mOHr7NInM8k6SbMFguHIriSJ0yzaH9MOgDnB5OI4",
 			    type: "GET",
@@ -25,21 +35,27 @@ var NearAsteroids = {
 				console.log("Successfully collect data");
 				NearAsteroids.LAST_DAY = today;
 			  	NearAsteroids.asteroids = data["near_earth_objects"][today];
+
+			  	window.localStorage.setItem("date", NearAsteroids.LAST_DAY);
+			  	window.localStorage.setItem("asteroids", JSON.stringify(NearAsteroids.asteroids));
+
 			  	NearAsteroids.writeInformation();
 			});
 		}
+		else NearAsteroids.writeInformation();
 	},
 
 	writeInformation: function() {
 		var asteroids = NearAsteroids.asteroids;
 		var counter = NearAsteroids.counter;
-		if(asteroids.length > 0) {
+		if(asteroids !== null && asteroids.length > 0) {
 			counter++;
 
 			if(counter >= asteroids.length)
 				counter = 0;
 
 			NearAsteroids.counter = counter;
+			
 			var asteroidText = document.getElementById("asteroidInformation");
 
 			asteroidText.innerHTML = "Name: " + "<font color=\"red\">" + asteroids[counter]["name"] + "</font>"
@@ -54,6 +70,9 @@ var NearAsteroids = {
 			
 			asteroidText.innerHTML += "<br/>Relative velocity: " + 
 							parseFloat(approach_data['relative_velocity']['kilometers_per_second']).toFixed(2) + " km/s";
+
+			asteroidText.innerHTML += "<br/>Miss distance: " +
+							parseFloat(approach_data['miss_distance']['kilometers']).toFixed(2) + " km";
 
 			asteroidText.innerHTML += "<br/>Is hazardous: " + 
 									asteroids[counter]['is_potentially_hazardous_asteroid'];
