@@ -26,6 +26,10 @@ div.inner {
     background-color: rgba(0,0,0,0.2);
 }
 
+#container {
+    height: 100%;
+}
+
 /* Style sheet from https://github.com/dataarts/webgl-globe/blob/master/globe/index.html */
 html {
     height: 100%;
